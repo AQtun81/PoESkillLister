@@ -4,9 +4,9 @@ var skills,
     skillsFetchFull,
     bDataset = false,
     previousSearch = "",
-    skillCountDisplay = 459;
+    skillCountDisplay = 309;
 getAndDisplaySkills();
-enabledTypes = [];
+enabledTypes = [9001];
 disabledTypes = [];
 enabledWeaponTypes = [];
 disabledWeaponTypes = [];
