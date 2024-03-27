@@ -4,7 +4,8 @@ var skills,
     skillsFetchFull,
     bDataset = false,
     previousSearch = "",
-    skillCountDisplay = 309;
+    skillCountDisplay = 494,
+    DisplayCanelled = false;
 getAndDisplaySkills();
 enabledTypes = [9001];
 disabledTypes = [];
@@ -215,20 +216,35 @@ function searchSkills(query) {
   }
 }
 
-function displaySkills() {
-  result = '';
-  if (skills.length == 0) {
-    skillListElement.innerHTML = result;
-    return;
-  }
+async function displaySkills() {
+  DisplayCanelled = true;
+  await new Promise(r => setTimeout(r, 1));
+  skillListElement.innerHTML = '';
+  DisplayCanelled = false;
   for (var i = 0; i < skills.length; i++) {
-    result += "<a class='skill' i='" + i + "' href='" + 'https://www.poewiki.net/wiki/' + skills[i].Name.replace(/ /g, '_').replace(/'/g, '%27') + "'><img src=" + '"' + "SkillIcons/" + skills[i].Name.replace(/'/g, '%27').toLowerCase() + ".png" + '"' + "><p>" + skills[i].Name + "</p></a>"
+    if (DisplayCanelled) break;
+    createSkillIcon(i);
+    if (i % 25 == 0) await new Promise(r => setTimeout(r, 1));
   }
-  skillListElement.innerHTML = result;
+}
 
-  for (var element of document.getElementsByClassName('skill')) {
-    addSkillMenuEvents(element);
-  }
+function createSkillIcon(i) {
+  var element = document.createElement("a");
+  element.classList.add("skill");
+  element.setAttribute("i", i) 
+  element.href = "https://www.poewiki.net/wiki/" + skills[i].Name.replace(/ /g, '_').replace(/'/g, "%27");
+
+  var elementImage = document.createElement("img");
+  elementImage.src = "SkillIcons/" + skills[i].Name.replace(/'/g, '%27').toLowerCase() + ".png";
+
+  var elementText = document.createElement("p");
+  elementText.innerText = skills[i].Name;
+
+  element.appendChild(elementImage);
+  element.appendChild(elementText);
+
+  skillListElement.appendChild(element);
+  addSkillMenuEvents(element);
 }
 
 function getAndDisplaySkills() {
@@ -488,7 +504,7 @@ function weaponTagsToString(WeaponTags) {
 }
 
 function updateSkillCount() {
-  var quantity = document.getElementsByClassName("skill").length;
+  var quantity = skills.length;
 
   if (quantity != skillCountDisplay) {
     element = document.getElementById("matchingSkillsHeader");
