@@ -592,8 +592,6 @@ function applySearchParams() {
     }
     filterSkills();
     searchSkills(previousSearch);
-    displaySkills();
-    updateSkillCount();
   });
 }
 
