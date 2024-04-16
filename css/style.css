@@ -283,6 +283,12 @@ header.separator::before {
     padding-top: 8px;
   }
 
+  .skill > .icon {
+    background-image: url("../icons.png");
+    width: 64px;
+    height: 64px;
+  }
+
   th, td {
     border-bottom-color: var(--table-border);
   }

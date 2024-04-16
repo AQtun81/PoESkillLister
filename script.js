@@ -228,14 +228,20 @@ async function displaySkills() {
   }
 }
 
+var iconPositionsPerRow = 24;
+var iconSize = 64;
+
 function createSkillIcon(i) {
   var element = document.createElement("a");
   element.classList.add("skill");
   element.setAttribute("i", i) 
   element.href = "https://www.poewiki.net/wiki/" + skills[i].Name.replace(/ /g, '_').replace(/'/g, "%27");
 
-  var elementImage = document.createElement("img");
-  elementImage.src = "SkillIcons/" + skills[i].Name.replace(/'/g, '%27').toLowerCase() + ".png";
+  var elementImage = document.createElement("div");
+  elementImage.classList.add("icon");
+  var x = skills[i].IconId % iconPositionsPerRow;
+  var y = (skills[i].IconId - x) / iconPositionsPerRow;
+  elementImage.style.backgroundPosition = x * -iconSize + "px " + y * -iconSize + "px";
 
   var elementText = document.createElement("p");
   elementText.innerText = skills[i].Name;
