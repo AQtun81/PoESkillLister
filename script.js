@@ -4,7 +4,7 @@ var skills,
     skillsFetchFull,
     bDataset = false,
     previousSearch = "",
-    skillCountDisplay = 520,
+    skillCountDisplay = 573,
     DisplayCanelled = false;
 getAndDisplaySkills();
 enabledTypes = [9001];
